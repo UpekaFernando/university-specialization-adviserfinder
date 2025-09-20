@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "chai": "^6.0.1",
+    "chromedriver": "^140.0.3",
+    "mocha": "^11.7.2",
+    "selenium-webdriver": "^4.35.0"
+  }
+}

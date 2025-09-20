@@ -1,0 +1,17 @@
+{
+  "name": "university-advisor-finder-tests",
+  "version": "1.0.0",
+  "description": "UI Tests for University Advisor Finder",
+  "scripts": {
+    "test:ui": "node tests/runTests.js",
+    "test:login": "node tests/loginTest.js",
+    "test:additem": "node tests/addItemTestNew.js",
+    "test:search": "node tests/lecturerSearchTest.js",
+    "install-deps": "npm install selenium-webdriver chromedriver chai --save-dev"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "chromedriver": "^119.0.1",
+    "selenium-webdriver": "^4.35.0"
+  }
+}
