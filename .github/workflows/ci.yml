@@ -10,6 +10,19 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      # MySQL service setup for tests
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: advisor_finder_test
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
     - uses: actions/checkout@v3
 
@@ -23,9 +36,9 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean compile --file pom.xml
 
-    - name: Run Tests
-      run: mvn -B test --file pom.xml
+    - name: Run Tests with MySQL
+      run: mvn -B test --file pom.xml -Dspring.profiles.active=test -Dspring.datasource.url=jdbc:mysql://localhost:3306/advisor_finder_test -Dspring.datasource.username=test_user -Dspring.datasource.password=test_password -Dspring.jpa.hibernate.ddl-auto=create-drop
 
-    - name: Run Integration Tests
+    - name: Run Integration Tests with MySQL
       run: |
-        mvn -B verify -DskipUTs=true --file pom.xml
+        mvn -B verify -DskipUTs=true --file pom.xml -Dspring.profiles.active=test -Dspring.datasource.url=jdbc:mysql://localhost:3306/advisor_finder_test -Dspring.datasource.username=test_user -Dspring.datasource.password=test_password -Dspring.jpa.hibernate.ddl-auto=create-drop
