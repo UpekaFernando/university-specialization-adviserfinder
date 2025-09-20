@@ -24,10 +24,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean compile --file pom.xml
 
-    # Simple test check - doesn't require database
+    # Run tests with H2 in-memory database
     - name: Run Tests
-      run: mvn -B test -DskipTests=true --file pom.xml
+      run: mvn -B test -Dspring.profiles.active=test --file pom.xml
 
     # This is a mock step that will always succeed for the screenshot
     - name: Run Integration Tests
-      run: echo "Integration Tests passed"
+      run: mvn -B verify -DskipUTs=true -Dspring.profiles.active=test --file pom.xml
